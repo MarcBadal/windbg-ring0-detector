@@ -1,0 +1,1 @@
+# windbg-ring0-detector
