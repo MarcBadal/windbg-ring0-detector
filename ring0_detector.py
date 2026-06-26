@@ -5,9 +5,6 @@
 #  Detección automatizada de comportamientos maliciosos en Ring 0 (kernel
 #  de Windows x64) mediante PyKd + WinDbg.
 #
-#  Módulo 10 - Reversing de Sistemas Windows
-#  Tarea individual 1: "Detección de malware mediante WinDbg y scripts de
-#  automatización".
 #
 #  El script automatiza la detección manual descrita en la guía (README.md)
 #  para cuatro técnicas de rootkit tratadas en el módulo:
@@ -16,9 +13,6 @@
 #     3) DKOM           -> procesos ocultos (vista doble: lista enlazada vs CID)
 #     4) Red            -> hooks de dispatch en drivers de red (tcpip/afd/...)
 #
-#  IMPORTANTE: este es un script DEFENSIVO / de análisis. Solo LEE estructuras
-#  del kernel y compara punteros contra los rangos de los módulos cargados; no
-#  modifica el sistema en ningún momento.
 #
 #  Uso típico (sesión de kernel debugging ya conectada en WinDbg):
 #       0:kd> .load pykd.pyd          ; (o .load pykd)
@@ -124,7 +118,7 @@ def read_image_name(eproc_addr):
 # La SSDT (KiServiceTable) almacena, en x64, OFFSETS relativos de 4 bytes.
 # La dirección absoluta de cada rutina se obtiene con:
 #       rutina = KiServiceTable + (offset_con_signo >> 4)
-# (el manual lo describe en la sección 7.3.3). Una entrada legítima SIEMPRE
+# Una entrada legítima SIEMPRE
 # resuelve dentro de la imagen de 'nt'. Si resuelve a otro módulo => HOOK.
 # -----------------------------------------------------------------------------
 def check_ssdt(modmap):
